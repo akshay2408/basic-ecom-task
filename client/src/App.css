@@ -1,0 +1,67 @@
+.App{
+    height: 100%;
+    width: 100%;
+}
+.login{
+    width: 100%;
+display: inline-flex;
+margin-top: 10%;
+justify-content: center;
+
+} 
+.register{
+    width: 100%;
+    display: inline-flex;
+    margin-top: 10%;
+    justify-content: center;
+    
+}
+.register input{
+    height: 2.5rem;
+   border-radius: 10px;
+   text-align: center;
+   margin: 10px;
+   
+}
+.label{
+    padding: 20px;
+}
+.add-product-form{
+    text-align: center;
+    margin:10px;
+}
+.add-product-form input{
+    height: 2.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin: 10px;
+}
+.Add-Card-form input{
+    height: 2.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin: 10px;
+
+}
+.login-form input{
+    height: 2.5rem;
+   border-radius: 10px;
+   text-align: center;
+   margin: 10px;
+  
+}
+.register-form{
+background-color: rgba(128, 128, 128, 0.548);
+padding: 30px;
+border-radius: 10px;
+}
+.login-form{
+background-color: rgba(128, 128, 128, 0.548);
+padding: 30px;
+border-radius: 10px;
+
+}
+.Add-product-modal{
+    text-align: end;
+    padding-bottom: 10px;
+}

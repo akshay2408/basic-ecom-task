@@ -1,0 +1,56 @@
+[{
+  "_id":1,
+  "productName": "Brown eggs",
+  "type": "dairy",
+  "description": "Raw organic brown eggs in a basket",
+  "filename": "0.jpg",
+  "height": 600,
+  "width": 400,
+  "price": 28.1,
+  "rating": 4,
+  "image":"https://5.imimg.com/data5/KB/XD/GI/IOS-85171045/product-jpeg-500x500.png"
+}, {
+  "_id":2,
+  "productName": "Sweet fresh stawberry",
+  "type": "fruit",
+  "description": "Sweet fresh stawberry on the wooden table",
+  "filename": "1.jpg",
+  "height": 450,
+  "width": 299,
+  "price": 29.45,
+  "rating": 4,
+  "image":"https://m.media-amazon.com/images/I/41v7NGnjr2L.jpg"
+}, {
+  "_id":3,
+  "productName": "Asparagus",
+  "type": "vegetable",
+  "description": "Asparagus with ham on the wooden table",
+  "filename": "2.jpg",
+  "height": 450,
+  "width": 299,
+  "price": 18.95,
+  "rating": 3,
+  "image": "https://lotus18.shop/storage/media/hLF0JCRIX4c70vxffLPIRf6PmDIQsJDjGp658enI.jpeg"
+}, {
+  "_id":4,
+  "productName": "Green smoothie",
+  "type": "dairy",
+  "description": "Glass of green smoothie with quail egg's yolk, served with cocktail tube, green apple and baby spinach leaves over tin surface.",
+  "filename": "3.jpg",
+  "height": 600,
+  "width": 399,
+  "price": 17.68,
+  "rating": 4,
+  "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2019/12/naked-juice-kale-blazer.jpg"
+}, {
+  "_id":5,
+  "productName": "Raw legums",
+  "type": "vegetable",
+  "description": "Raw legums on the wooden table",
+  "filename": "4.jpg",
+  "height": 450,
+  "width": 299,
+  "price": 17.11,
+  "rating": 2,
+  "image": "https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/four-bowls-of-beans-1296x728.jpg?w=1155&h=1528"
+}]
