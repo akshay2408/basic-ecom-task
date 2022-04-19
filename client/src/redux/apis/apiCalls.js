@@ -4,23 +4,20 @@ import { API_BASE_URL } from "../../constants/baseUrl";
 const Api = {}
 const token = localStorage.getItem("token")
 Api.Login = (user) => {
-    const formData = new FormData()
-    formData.append("email", user.email)
-    formData.append("password", user.password)
+    console.log("login", user);
+   
     return axios({
         method: 'POST',
         url: `${API_BASE_URL}/login`,
         headers: {
             "Content-type": "application/json"
         },
-        data: formData
+        data:user
     })
 }
 
 Api.Register = (newUser) => {
-    const formData = new FormData()
-    formData.append("email", newUser.email)
-    formData.append("password", newUser.password)
+    console.log("registter", newUser);
     return axios({
         method: 'POST',
         url: `${API_BASE_URL}/register`,
@@ -28,7 +25,7 @@ Api.Register = (newUser) => {
         headers: {
             "Content-type": "application/json"
         },
-        data: formData
+        data: newUser
     })
 }
 

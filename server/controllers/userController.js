@@ -21,6 +21,7 @@ exports.register = async (req, res) => {
   if (email.includes("@")) {
     const filemail = users.filter(item => item.email === email)
     if (filemail.length > 0) {
+      res.status(400)
       res.send("email already exists!")
     } else {
       if (password === cpassword) {
@@ -32,16 +33,16 @@ exports.register = async (req, res) => {
         })
         try {
           const response = await util.setUser(users)
-          res.send(response)
-        } catch (err) {
-          res.send(err)
+          res.status(200).send(response)
+        }catch(err){
+           res.status(401).send(err)
         }
       } else {
-        res.send("password did not matched!")
+        res.status(401).send("password did not matched!")
       }
     }
   } else {
-    res.send("invailid email address")
+    res.status(401).send("invailid email address")
   }
 }
 

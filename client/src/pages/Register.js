@@ -2,6 +2,10 @@ import Button from "@restart/ui/esm/Button";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { IoLogIn } from 'react-icons/io5'
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+import Api from "../redux/apis/apiCalls";
 
 const Register = () => {
   const [newUser, setNewUser] = useState({
@@ -11,7 +15,8 @@ const Register = () => {
     cpassword: "",
   });
   const history = useHistory();
-
+  toast.configure()
+  
   const hendleChange = (e) => {
     if (e.target.name == "usename") {
       setNewUser({ ...newUser, usename: e.target.value });
@@ -26,14 +31,17 @@ const Register = () => {
       setNewUser({ ...newUser, cpassword: e.target.value });
     }
   };
-  const Redirect = (data) => {
-    console.log("userData11", data);
-    localStorage.setItem("user", JSON.stringify(data));
-    history.push("/login");
-  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+    Api.Register(newUser).then((res) =>{
+      toast(res.data,{type:"success"});
+        history.push("/login");        
+    }).catch((err) => {
+      toast(err.response.data,{type:"error"});
+    })
   };
+  
   return (
     <div className="register-form bg-light border border-success shadow" >
       <h4 style={{ textAlign: "center" }}>Sign up</h4>

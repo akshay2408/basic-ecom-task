@@ -4,10 +4,11 @@ import { Link, useHistory } from "react-router-dom";
 import {FaShoppingCart} from 'react-icons/fa'
 
 const Header = () => {
-    const hestory = useHistory()
+    const history = useHistory()
+    const token = localStorage.getItem("token")
     const hendleLogout = () => {
-        localStorage.removeItem("user")
-        hestory.push("/login")
+        localStorage.removeItem("token")
+        history.push("/login")
     }
     return (
         <Navbar className="bg-dark"   expand="lg">
@@ -26,7 +27,12 @@ const Header = () => {
                         </Nav.Link>
 
                         <Nav.Link>
-                            <Link className="text-white" onClick={() => hendleLogout()} style={{textDecoration:"none"}}>Logout</Link>
+                            { !token ? 
+                            (<Link to="/login" className="text-white" style={{textDecoration:"none"}}> Login </Link>
+                            ) : (
+                                <Link className="text-white" onClick={() => hendleLogout()} style={{textDecoration:"none"}}>Logout</Link>
+                            )
+                        }
                         </Nav.Link>
 
                     </Nav>

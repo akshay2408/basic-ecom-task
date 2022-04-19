@@ -5,22 +5,33 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
 
+import Api from "../redux/apis/apiCalls";
+
 if (typeof window !== "undefined") {
     injectStyle();
 }
 
 const Login = () => {
     const [user, setuser] = useState({ email: "", password: "" })
-    const hestory = useHistory()
+    const history = useHistory()
     toast.configure()
-    const redirect = () => {
-        console.log("for redirect")
-        hestory.push("/")
-    }
+
+    // const redirect = () => {
+    //     console.log("for redirect")
+    //     history.push("/")
+    // }
 
     const handleLogin = (e) => {
         e.preventDefault()
+        Api.Login(user).then((res) =>{
+            localStorage.setItem("token",res.data.token)
+            toast("login successfully!",{type:"success"});
+              history.push("/");        
+          }).catch((err) => {
+            toast(err.response.data,{type:"error"});
+          })
     }
+
     const handleChange = (e) => {
 
         if (e.target.name == "email") {
