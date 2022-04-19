@@ -2,14 +2,14 @@ import axios from 'axios';
 import { API_BASE_URL } from "../../constants/baseUrl";
 
 const Api = {}
-
+const token = localStorage.getItem("token")
 Api.Login = (user) => {
     const formData = new FormData()
     formData.append("email", user.email)
     formData.append("password", user.password)
     return axios({
         method: 'POST',
-        url: `${API_BASE_URL}/api/login`,
+        url: `${API_BASE_URL}/login`,
         headers: {
             "Content-type": "application/json"
         },
@@ -23,7 +23,7 @@ Api.Register = (newUser) => {
     formData.append("password", newUser.password)
     return axios({
         method: 'POST',
-        url: `${API_BASE_URL}/`,
+        url: `${API_BASE_URL}/register`,
 
         headers: {
             "Content-type": "application/json"
@@ -33,52 +33,50 @@ Api.Register = (newUser) => {
 }
 
 Api.getProducts = () => {
+
+    console.log("here is token", token)
     return axios({
         method: 'GET',
-        url: `${API_BASE_URL}/`,
+        url: `${API_BASE_URL}/products`,
 
         headers: {
-            "Content-type": "application/json"
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}`
         }
-
     })
 }
 
 Api.ViewCarts = () => {
-    const user = JSON.parse(localStorage.getItem("user"))
 
     return axios({
         method: 'GET',
-        url: `${API_BASE_URL}/`,
-
+        url: `${API_BASE_URL}/carts`,
         headers: {
             "Content-type": "application/json",
-            "accessToken": user.sessionToken
+            "Authorization": `Bearer ${token}`
         }
-
     })
 }
 
 Api.AddtoCart = (data) => {
- 
-}
-
-
-
-Api.RemoveCart = (id) => {
-    const user = JSON.parse(localStorage.getItem("user"))
-    const formData = new FormData()
-    formData.append("id", id)
-
     return axios({
         method: 'POST',
-        url: `${API_BASE_URL}/`,
-
+        url: `${API_BASE_URL}/cart/${data.id}`,
         headers: {
             "Content-type": "application/json",
-            "accessToken": user.sessionToken
+            "Authorization": `Bearer ${token}`
+        }
+    })
+}
+
+Api.RemoveCart = (id) => {
+    return axios({
+        method: 'DELETE',
+        url: `${API_BASE_URL}/cart/${id}`,
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
-        data: formData
     })
 }
 

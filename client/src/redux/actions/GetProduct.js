@@ -30,7 +30,7 @@ export const failureProducts = (error) => {
 export const getProducts = () => {
     return function (dispatch) {
         Api.getProducts().then(result => {
-            dispatch(successProducts(result.data.result))
+            dispatch(successProducts(result.data))
         }).catch(error => {
             dispatch(failureProducts(error))
         })

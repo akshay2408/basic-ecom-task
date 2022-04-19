@@ -4,8 +4,6 @@ exports.verifyToken = async (req, res, next) => {
   const authorization = req.headers.authorization
   const jwtSecretKey = process.env.JWT_SECRET_KEY;
   const token = authorization.split(" ")[1]
-  console.log("hekreerer",token)
-
   if (token) {
     try {
       jwt.verify(token, jwtSecretKey);

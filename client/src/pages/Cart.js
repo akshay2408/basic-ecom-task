@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { useSelector } from "react-redux";
-
-import products from "../Product.json";
+import { useDispatch, useSelector } from "react-redux";
 import { FaCartPlus } from "react-icons/fa";
-
-import { Link } from "react-router-dom";
+import { ViewCart } from "../redux/actions/ViewCart";
+import Api from "../redux/apis/apiCalls"
 
 const Cart = () => {
- 
-  const [total, setTotal] = useState(0);
-  
 
-  const data = useSelector((state) => state.ViewCartReducer.ViewCart);
-  console.log("data::::", data);
-  
+  const [total, setTotal] = useState(0);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(ViewCart())
+  }, [])
+
+  const Carts = useSelector(state => state.ViewCartReducer.CartList)
+
+  const handleRemoveCart = (product) => {
+    console.log(product.id)
+    Api.RemoveCart(product.id).then(res => {
+      dispatch(ViewCart())
+    }).catch(err => {
+      console.log("err", err)
+    })
+  }
+
   return (
     <div>
       <Header />
@@ -24,7 +33,7 @@ const Cart = () => {
             <h4>Cart Product</h4>
             <div className="container bg-light product-table">
               <div className="row" style={{ placeContent: "center" }}>
-                {products.map((val, index) => {
+                {Carts.map((val, index) => {
                   return (
                     <div
                       key={index}
@@ -41,10 +50,8 @@ const Cart = () => {
                         <p className="card-text">
                           <strong>${val.price}</strong>
                         </p>
-                       
-                        <Link to="#" className="btn btn-primary">
-                          <FaCartPlus /> Remove From Cart
-                        </Link>
+
+                        <button className="btn btn-success" onClick={() => handleRemoveCart(val)} > <FaCartPlus /> Remove</button>
                       </div>
                     </div>
                   );
@@ -56,7 +63,7 @@ const Cart = () => {
                     <button className="btn btn-warning">
                       CheckOut
                     </button>
-                    
+
                   </div>
                 </div>
 

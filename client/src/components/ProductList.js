@@ -1,14 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import products from "../Product.json";
-import { FaCartPlus } from "react-icons/fa";
 
-const ProductList = (props) => {
+import { FaCartPlus } from "react-icons/fa";
+import Api from "../redux/apis/apiCalls"
+
+const ProductList = ({products}) => {
+
+  const handleCart = (val) => {
+    Api.AddtoCart(val).then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   return (
     <div className="container bg-light product-table">
       <div className="row" style={{ placeContent: "center" }}>
-        { products.map((val, index) => {
+        {products.map((val, index) => {
           return (
             <div
               key={index}
@@ -21,13 +31,11 @@ const ProductList = (props) => {
                 <p className="card-text">
                   <strong>${val.price}</strong>
                 </p>
-                <Link href="#" className="btn btn-primary">
-                  <FaCartPlus /> Add to Cart
-                </Link>
+                <button className="btn btn-success" onClick={() => handleCart(val)} > <FaCartPlus /> Add to Cart</button>
               </div>
             </div>
           );
-        }) }
+        })}
       </div>
     </div>
   );

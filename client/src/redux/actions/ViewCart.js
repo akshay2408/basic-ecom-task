@@ -29,7 +29,7 @@ export const failureViewCart = (error) =>{
 export const ViewCart = () => {
    return function(dispatch){
     Api.ViewCarts().then(result=>{   
-        dispatch(successViewCart(result.data.result))
+        dispatch(successViewCart(result.data))
     }).catch(error=>{
         dispatch(failureViewCart(error))
     })

@@ -16,11 +16,5 @@
     "name": "test1",
     "email": "test3@gmail.com",
     "password": "test@123"
-  },
-  {
-    "_id": 4,
-    "name": "test1",
-    "email": "test5@gmail.com",
-    "password": "test@123"
   }
 ]
