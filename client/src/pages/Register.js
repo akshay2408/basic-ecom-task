@@ -21,7 +21,7 @@ const Register = () => {
   toast.configure()
   
   const handleChange = (e) => {
-      setNewUser({ ...newUser, [e.target.name]: e.target.value });    
+      setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
@@ -51,7 +51,7 @@ const Register = () => {
                     type="text"
                     name="name"
                     required
-                    placeholder="UserName"
+                    placeholder="User Name"
                     onChange={(e) => handleChange(e)}
                   ></input>
                 </td>

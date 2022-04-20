@@ -2,14 +2,19 @@ import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../redux/actions/userAction";
+import { useHistory } from "react-router";
 
 const Header = () => {
+  const dispatch = useDispatch()
+  const history = useHistory()
   const handleLogout = (e) => {
-    e.preventDefault();
-    localStorage.removeItem("token");
-    window.location.reload();
-  };
+    e.preventDefault()
+    localStorage.removeItem("token")
+    dispatch(clearUser())
+    history.push("/login")
+  }
   const loginUser = useSelector((state) => state?.userReducer?.userinfo);
   const isLoggedIn = useSelector((state) => state?.userReducer?.isLoggedIn);
 
@@ -29,7 +34,7 @@ const Header = () => {
               {isLoggedIn && (
                 <>
                   <Nav.Link
-                    as={Link} 
+                    as={Link}
                     to="/"
                     className="text-white"
                     style={{ textDecoration: "none" }}
@@ -39,7 +44,7 @@ const Header = () => {
                   </Nav.Link>
 
                   <Nav.Link
-                    as={Link} 
+                    as={Link}
                     to="/cart"
                     className="text-white"
                     style={{ textDecoration: "none" }}
@@ -50,7 +55,6 @@ const Header = () => {
                   <Nav.Link>
                     <div
                       className="text-white"
-                      Tooltip={loginUser?.username}
                       style={{ textDecoration: "none" }}
                     >
                       <FaUser />
@@ -62,7 +66,7 @@ const Header = () => {
 
               {!isLoggedIn && (
                 <Nav.Link
-                  as={Link} 
+                  as={Link}
                   to="/register"
                   className="text-white"
                   style={{ textDecoration: "none" }}
@@ -73,7 +77,7 @@ const Header = () => {
 
               {!isLoggedIn ? (
                 <Nav.Link
-                  as={Link} 
+                  as={Link}
                   to="/login"
                   className="text-white mx-3"
                   style={{ textDecoration: "none" }}

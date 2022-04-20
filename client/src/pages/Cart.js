@@ -19,7 +19,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getAllCarts())
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     let total = 0
@@ -151,7 +151,7 @@ const Cart = () => {
                 </div>
               </div>
 
-            </div> : <div style={{ marginTop: "15%", marginLeft: "50%" }}>No Carts! <Link to="/">add carts</Link></div>}
+            </div> : <div style={{ marginTop: "15%", marginLeft: "50%" }}>No Carts! <Link to="/">add to cart</Link></div>}
             {/*main row...*/}
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import {
   GET_PRODUCTS,
 } from "../../constants/actionTypes";
@@ -15,7 +16,7 @@ export const getAllProducts = () => {
     getProducts().then(result => {
       dispatch(successGetProducts(result.data))
     }).catch(error => {
-
+      console.log("error",error)
     })
   }
 }
