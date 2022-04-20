@@ -4,22 +4,25 @@ import { Link, useHistory } from "react-router-dom";
 import { IoLogIn } from 'react-icons/io5'
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { userRegister } from "../redux/opretions/user";
+import { getUser } from "../redux/actions/userAction";
+import { useDispatch } from "react-redux";
 
-import Api from "../redux/opretions/apiCalls";
+
 
 const Register = () => {
   const [newUser, setNewUser] = useState({
-    usename: "",
+    name: "",
     email: "",
     password: "",
     cpassword: "",
   });
   const history = useHistory();
   toast.configure()
-  
+  const dispatch = useDispatch()
   const hendleChange = (e) => {
     if (e.target.name == "usename") {
-      setNewUser({ ...newUser, usename: e.target.value });
+      setNewUser({ ...newUser, name: e.target.value });
     }
     if (e.target.name == "email") {
       setNewUser({ ...newUser, email: e.target.value });
@@ -31,17 +34,23 @@ const Register = () => {
       setNewUser({ ...newUser, cpassword: e.target.value });
     }
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    Api.Register(newUser).then((res) =>{
-      toast(res.data,{type:"success"});
-        history.push("/login");        
+    userRegister(newUser).then((res) => {
+
+      localStorage.setItem("token", res.data.token)
+      dispatch(getUser(res.data.token))
+      toast("registration successfully!", { type: "success" });
+      setTimeout(() => {
+        history.push("/");
+      }, 500)
+
     }).catch((err) => {
-      toast(err.response.data,{type:"error"});
+      toast(err.response?.data?.message, { type: "error" });
     })
   };
-  
+
   return (
     <div className="register-form bg-light border border-success shadow" >
       <h4 style={{ textAlign: "center" }}>Sign up</h4>
@@ -101,7 +110,7 @@ const Register = () => {
             </Button>
             <br />
             <Link to="/login" style={{ textDecoration: "none", color: "blue" }}>
-              <IoLogIn/>Login
+              <IoLogIn />Login
             </Link>
           </div>
         </form>

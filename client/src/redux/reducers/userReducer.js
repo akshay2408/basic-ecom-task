@@ -4,12 +4,12 @@ import {
 
 } from "../../constants/actionTypes";
 
-const initilizeState = {
+const initialState = {
   userinfo: null,
   isLoggedIn: false
 }
 
-export default function getUser(state = initilizeState, action) {
+export default function getUser(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
       return {

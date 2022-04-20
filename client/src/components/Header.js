@@ -29,11 +29,11 @@ const Header = () => {
                                 <Nav.Link>
                                     <div className="text-white" style={{ textDecoration: "none" }}><FaUser />{loginUser?.username}  </div>
                                 </Nav.Link>
-                                {pathname !== "/" && <Nav.Link>
-                                    <Link to="/" className="text-white" style={{ textDecoration: "none" }}> Home  </Link>
-                                </Nav.Link>}
                                 <Nav.Link>
-                                    <Link to="/cart" className="text-white" style={{ textDecoration: "none" }}><FaShoppingCart /> ViewCart  </Link>
+                                    <Link to="/" className="text-white" style={{ textDecoration: "none" }}> Home  </Link>
+                                </Nav.Link>
+                                <Nav.Link>
+                                    <Link to="/cart" className="text-white" style={{ textDecoration: "none" }}><FaShoppingCart /> Carts  </Link>
                                 </Nav.Link>
                             </>
                             }

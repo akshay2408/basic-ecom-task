@@ -11,15 +11,17 @@ exports.login = (req, res) => {
     res.send({ username: user.name, email: user.email, token: token });
     res.status(201)
   } else {
-    res.status(404)
+    res.status(400)
+    res.send("credential is not matchs!")
   }
 }
 
 exports.register = async (req, res) => {
   const { name, email, password, cpassword } = req.body
+  console.log("here is body",req.body)
   if (email.includes("@")) {
-    const filemail = users.filter(item => item.email === email)
-    if (filemail.length > 0) {
+    const filemail = users.find(item => item.email === email)
+    if (filemail) {
       res.status(400)
       res.send("email already exists!")
     } else {
@@ -32,7 +34,12 @@ exports.register = async (req, res) => {
         })
         try {
           const response = await util.setUser(users)
-          res.status(200).send(response)
+          console.log(users)
+          let jwtSecretKey = process.env.JWT_SECRET_KEY;
+          const token = jwt.sign({ name, email, password, }, jwtSecretKey, { expiresIn: '1d' });
+          res.send({ token: token, message: response });
+          res.status(200)
+          // res.status(200).send(response)
         } catch (err) {
           res.status(401).send(err)
         }
@@ -52,8 +59,9 @@ exports.getUser = (req, res) => {
   if (token) {
     try {
       const user = jwt.verify(token, jwtSecretKey);
-     const userData = users.find(item =>item.email===user.email)
-      res.send({id:userData._id,username:userData.name,email:userData.email})
+      const userData = users.find(item => item.email === user.email)
+      console.log("userDAta",userData)
+      res.send({ id: userData._id, username: userData.name, email: userData.email })
     } catch (error) {
       res.json({
         auth: false,

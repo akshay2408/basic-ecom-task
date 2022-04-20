@@ -2,16 +2,16 @@
 import {
     GET_PRODUCTS,
 } from "../../constants/actionTypes";
-const initilizeState = {
-    Products: []
+const initialState = {
+    products: []
 }
 
-export default function getProducts(state = initilizeState, action) {
+export default function getProducts(state = initialState, action) {
     switch (action.type) {
         case GET_PRODUCTS:
             return {
                 ...state,
-                Products: action?.Products,
+                products: action?.Products,
             }
         default:
             return state

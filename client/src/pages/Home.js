@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import ProductList from "../components/ProductList";
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from "../redux/actions/productsAction";
+import { getAllProducts } from "../redux/actions/productsAction";
 
 const Home = () => {
 
     const dispatch = useDispatch()
-    const products = useSelector(state => state.productsReducer.Products)
-  
+    const products = useSelector(state => state.productsReducer.products)
+
     useEffect(() => {
-            dispatch(getProducts())
+            dispatch(getAllProducts())
     }, [])
 
     return (
         <div className="container" style={{ marginTop: "100px" }}>
-            {products?.length && <ProductList isAction={true} products={products} />}
+            <ProductList isAction={true} products={products} />
         </div>
     )
 }

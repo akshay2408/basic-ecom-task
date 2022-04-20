@@ -4,16 +4,16 @@ import {
 
 } from "../../constants/actionTypes";
 
-const initilizeState = {
-    CartList: []
+const initialState = {
+    cartList: []
 }
 
-export default function ViewCartReducer(state = initilizeState, action) {
+export default function ViewCartReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CARTS:
             return {
                 ...state,
-                CartList: action.CartList
+                cartList: action.CartList
             }
 
         default:

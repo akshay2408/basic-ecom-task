@@ -2,23 +2,21 @@ import {
     GET_CARTS,
 } from "../../constants/actionTypes";
 
-import { getCartsApi } from "../opretions/apiCalls";
+import { getCarts } from "../opretions/carts";
 
 
 
-export const getCarts = (result) => {
+export const successGetCarts = (result) => {
     return {
         type: GET_CARTS,
         CartList: result
     }
 }
 
-
-
-export const ViewCart = () => {
+export const getAllCarts = () => {
     return function (dispatch) {
-        getCartsApi().then(result => {
-            dispatch(getCarts(result.data))
+        getCarts().then(result => {
+            dispatch(successGetCarts(result.data))
         }).catch(error => {
         })
     }

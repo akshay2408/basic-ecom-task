@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Error from "./pages/Error";
+import PageNotFound from "./pages/Error";
 import Cart from "./pages/Cart";
 import { toast } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
@@ -12,7 +12,7 @@ import { injectStyle } from "react-toastify/dist/inject-style";
 import "./App.css";
 import Header from "./components/Header";
 import { getUser } from "./redux/actions/userAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 if (typeof window !== "undefined") {
@@ -20,8 +20,13 @@ if (typeof window !== "undefined") {
 }
 
 function App() {
+  toast.configure()
   const dispatch = useDispatch()
   const history = useHistory()
+  const loginUser = useSelector(state => state?.userReducer?.userinfo)
+  const isLoggedIn = useSelector(state => state?.userReducer?.isLoggedIn)
+  const pathname = window.location.pathname
+
   useEffect(() => {
     const token = localStorage.getItem("token")
     if (token) {
@@ -29,26 +34,17 @@ function App() {
     } else {
       history.push("/login")
     }
-
   }, [])
-
-  toast.configure()
-
-  // const userinfo = JSON.parse(localStorage.getItem("userinfo"))
 
   return (
     <div className="App">
       <Header />
       <Switch>
         <Route exact path="/">
-          {/* {userinfo?.token ?  */}
-          <Home />
-          {/* : <Login />} */}
+          {isLoggedIn ? <Home /> : <Login />}
         </Route>
         <Route exact path="/cart">
-          {/* {userinfo?.token ? */}
-          <Cart />
-          {/* :<Login />} */}
+          {isLoggedIn ? <Cart /> : <Login />}
         </Route>
         <Route path="/login">
           <div className="login">
@@ -60,9 +56,12 @@ function App() {
             <Register />
           </div>
         </Route>
-
-
-        <Route path="*" exact={true} component={Error} />
+        <Route path="*">
+          <div className="register">
+            <PageNotFound />
+          </div>
+        </Route>
+       
       </Switch>
     </div>
   );

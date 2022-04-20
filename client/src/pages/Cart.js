@@ -1,68 +1,64 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ViewCart } from "../redux/actions/cartsAction";
-import Api from "../redux/opretions/apiCalls"
+import { getAllCarts } from "../redux/actions/cartsAction";
+import { removeCart, updateCart } from "../redux/opretions/carts"
+
 import { FaCartPlus } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { Table } from "react-bootstrap";
-import "./Cart.css"
+import { Link } from "react-router-dom";
 
 const Cart = () => {
 
   const [subTotal, setSubTotal] = useState(0);
-
   const dispatch = useDispatch()
-  let Carts = useSelector(state => state.cartsReducer.CartList)
+  let cartList = useSelector(state => state.cartsReducer.cartList)
 
   useEffect(() => {
-    dispatch(ViewCart())
+    dispatch(getAllCarts())
   }, [])
 
   useEffect(() => {
     let total = 0
-    Carts.forEach((item) => {
+    cartList.forEach((item) => {
       total = total + item.total_price
     })
     setSubTotal(total)
-  }, [Carts])
+  }, [cartList])
 
   const handleRemoveCart = (product) => {
     console.log(product.id)
-    Api.removeCart(product.id).then(res => {
+    removeCart(product.id).then(res => {
       setTimeout(() => {
-        dispatch(ViewCart())
-      }, 500)
+        dispatch(getAllCarts())
+      }, 1000)
     }).catch(err => {
       console.log("err", err)
     })
   }
 
   const handleQuentityInc = (val) => {
-    dispatch(Api.updateCart({ id: val.id, quantity: val.quantity + 1 })).then(res => {
-      setTimeout(() => {
-        dispatch(ViewCart())
-      }, 1000)
-    })
-  }
-  const handleQuentityDec = (val) => {
-    dispatch(Api.updateCart({ id: val.id, quantity: val.quantity - 1 })).then(res => {
-      setTimeout(() => {
-        dispatch(ViewCart())
-      }, 1000)
+    updateCart({ id: val.id, quantity: val.quantity + 1 }).then(res => {
+      dispatch(getAllCarts())
     })
   }
 
+  const handleQuentityDec = (val) => {
+    updateCart({ id: val.id, quantity: val.quantity - 1 }).then(res => {
+      dispatch(getAllCarts())
+    })
+  }
 
   return (
     <div>
       <div className="container my-2" style={{ marginTop: "100px" }}>
         <div style={{ display: "flex" }}>
           <div style={{ width: "100%" }}>
-            <h4 className="mt-3">
+            {cartList.length > 0 && <h4 style={{ marginTop: "100px" }}>
               {" "}
-              Your Cart <FaShoppingCart />
-            </h4>
-            <div className="row d-md-flex  d-sm-block d-block my-2">
+              My Cart <FaShoppingCart />
+            </h4>}
+            {cartList.length > 0 ? <div className="row d-md-flex  d-sm-block d-block my-2">
               <div className="col-md-6 col-sm-12 col-12 my-3 billing">
                 <div className="product-table">
                   <Table striped bordered hover variant="light">
@@ -74,14 +70,11 @@ const Cart = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {Carts &&
-                        Carts.map((item, i) => {
-
+                      {cartList &&
+                        cartList.map((item, i) => {
                           return (<tr key={i}>
                             <td>{item.productName}</td>
-
                             <td>{item.quantity} * {item.price}</td>
-
                             <td>{item.total_price}</td>
                           </tr>)
                         })}
@@ -99,7 +92,7 @@ const Cart = () => {
               <div className="col-md-6 col-sm-12 col-12  cart-product">
                 <div className="container bg-light product-table p-0">
                   <div className="row align-items-stretch" style={{ placeContent: "center" }}>
-                    {Carts.map((val, index) => {
+                    {cartList.map((val, index) => {
                       return (
                         <div
                           key={index}
@@ -147,9 +140,9 @@ const Cart = () => {
                     })}
                   </div>
                 </div>
-              </div>{" "}
-              {/*cart-product col...*/}
-            </div>{" "}
+              </div>
+
+            </div> : <div style={{ marginTop: "15%", marginLeft: "50%" }}>No Carts! <Link to="/">add carts</Link></div>}
             {/*main row...*/}
           </div>
         </div>

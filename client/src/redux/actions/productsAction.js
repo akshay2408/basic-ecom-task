@@ -1,23 +1,23 @@
 import {
-    GET_PRODUCTS,
+  GET_PRODUCTS,
 } from "../../constants/actionTypes";
-import {getProductsApi} from "../opretions/apiCalls";
+import { getProducts } from "../opretions/products";
 
-export const successProducts = (result) => {
-    return {
-        type: GET_PRODUCTS,
-        Products: result
-    }
+export const successGetProducts = (result) => {
+  return {
+    type: GET_PRODUCTS,
+    Products: result
+  }
 }
 
-export const getProducts = () => {
-    return function (dispatch) {
-        getProductsApi().then(result => {
-            dispatch(successProducts(result.data))
-        }).catch(error => {
-           
-        })
-    }
+export const getAllProducts = () => {
+  return function (dispatch) {
+    getProducts().then(result => {
+      dispatch(successGetProducts(result.data))
+    }).catch(error => {
+
+    })
+  }
 }
 
 

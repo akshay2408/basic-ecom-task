@@ -1,14 +1,16 @@
 import React from "react";
 import "./ProductList.css"
 import { FaCartPlus } from "react-icons/fa";
-import Api from "../redux/opretions/apiCalls"
+import { addCart } from "../redux/opretions/carts"
+
 import { toast } from "react-toastify";
 
 const ProductList = ({ products }) => {
 
   const handleCart = (val) => {
-    Api.AddtoCart(val).then(res => {
-      toast("producted added successfully!", { type: "success" });
+    addCart(val).then(res => {
+      console.log("here is res", res.data)
+      toast(res.data, { type: "success" });
     }).catch(err => {
       console.log(err)
     })

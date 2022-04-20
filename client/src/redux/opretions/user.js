@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../../constants/baseUrl";
 
 
 
-export const Login = (user) => {
+export const userLogin = (user) => {
   return axios({
     method: 'POST',
     url: `${API_BASE_URL}/login`,
@@ -15,7 +15,7 @@ export const Login = (user) => {
   })
 }
 
-export const Register = (newUser) => {
+export const userRegister = (newUser) => {
   return axios({
     method: 'POST',
     url: `${API_BASE_URL}/register`,

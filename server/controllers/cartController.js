@@ -5,10 +5,9 @@ const products = require("../mockData/products.json")
 
 exports.addToCart = async (req, res) => {
   const { id } = req.params
-  // const { product_id, user_id } = req.body
   const data = products.filter(item => item.id == id)[0]
   if (data) {
-    const fillCarts = carts.filter(item => item.id == id)
+    const fillCarts = carts.filter(item => item.product_id == id)
     if (fillCarts.length > 0) {
       res.send("product already added to cart")
     } else {
@@ -70,7 +69,7 @@ exports.updateCart = async (req, res) => {
 exports.removeCart = async (req, res) => {
   const { id } = req.params
   try {
-    const fillCarts = carts.filter(item => item.id != id)
+    const fillCarts = carts.filter(item => item.product_id != id)
     const response = await util.removeProduct(fillCarts)
     res.send(response)
   } catch (err) {

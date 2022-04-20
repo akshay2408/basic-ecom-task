@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
 import { getUser } from "../redux/actions/userAction";
 
-import Api from "../redux/opretions/apiCalls";
+import {userLogin} from "../redux/opretions/user";
+
 
 if (typeof window !== "undefined") {
     injectStyle();
@@ -21,7 +22,7 @@ const Login = () => {
 
     const handleLogin = (e) => {
         e.preventDefault()
-        Api.Login(user).then((res) => {
+        userLogin(user).then((res) => {
             localStorage.setItem("token", res.data.token)
             dispatch(getUser(res.data.token))
             toast("login successfully!", { type: "success" });
