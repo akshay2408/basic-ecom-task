@@ -8,7 +8,7 @@ const initialState = {
     cartList: []
 }
 
-export default function ViewCartReducer(state = initialState, action) {
+export default function CartReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CARTS:
             return {

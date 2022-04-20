@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
-
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -8,7 +7,6 @@ import PageNotFound from "./pages/PageNotFound";
 import Cart from "./pages/Cart";
 import { toast } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
-
 import "./App.css";
 import Header from "./components/Header";
 import { getUser } from "./redux/actions/userAction";
@@ -32,26 +30,26 @@ function App() {
     } else {
       history.push("/login")
     }
-  }, [])
+  }, [dispatch, history])
 
   return (
     <div className="App">
       <Header />
       <Switch>
         <Route exact path="/">
-          {isLoggedIn ? <Home /> : <Login />}
+          {isLoggedIn ? <Home /> : <div className="login"> <Login /></div>}
         </Route>
         <Route exact path="/cart">
-          {isLoggedIn ? <Cart /> : <Login />}
+          {isLoggedIn ? <Cart /> : <div className="login"> <Login /> </div>}
         </Route>
         <Route path="/login">
           <div className="login">
-            <Login />
+            {!isLoggedIn ? <Login /> : <Home />}
           </div>
         </Route>
         <Route path="/register">
           <div className="register">
-            <Register />
+            {!isLoggedIn ? <Register /> : <Home />}
           </div>
         </Route>
         <Route path="*">
@@ -59,7 +57,7 @@ function App() {
             <PageNotFound />
           </div>
         </Route>
-       
+
       </Switch>
     </div>
   );

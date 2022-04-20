@@ -15,7 +15,7 @@ export const getAllProducts = () => {
     getProducts().then(result => {
       dispatch(successGetProducts(result.data))
     }).catch(error => {
-
+      console.log("error",error)
     })
   }
 }

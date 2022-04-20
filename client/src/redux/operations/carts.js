@@ -14,7 +14,7 @@ export const getCarts = () => {
 }
 
 
-export const addCart = (data) => {
+export const addToCart = (data) => {
   const token = localStorage.getItem("token")
   return axios({
     method: 'POST',
