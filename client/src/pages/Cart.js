@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { ViewCart } from "../redux/actions/ViewCart";
-import Api from "../redux/apis/apiCalls"
-import products from "../Product.json";
+import { ViewCart } from "../redux/actions/cartsAction";
+import Api from "../redux/opretions/apiCalls"
 import { FaCartPlus } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { Table } from "react-bootstrap";
@@ -11,22 +9,49 @@ import "./Cart.css"
 
 const Cart = () => {
 
-  const [total, setTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
+
   const dispatch = useDispatch()
+  let Carts = useSelector(state => state.cartsReducer.CartList)
+
   useEffect(() => {
     dispatch(ViewCart())
   }, [])
 
-  const Carts = useSelector(state => state.ViewCartReducer.CartList)
+  useEffect(() => {
+    let total = 0
+    Carts.forEach((item) => {
+      total = total + item.total_price
+    })
+    setSubTotal(total)
+  }, [Carts])
 
   const handleRemoveCart = (product) => {
     console.log(product.id)
-    Api.RemoveCart(product.id).then(res => {
-      dispatch(ViewCart())
+    Api.removeCart(product.id).then(res => {
+      setTimeout(() => {
+        dispatch(ViewCart())
+      }, 500)
     }).catch(err => {
       console.log("err", err)
     })
   }
+
+  const handleQuentityInc = (val) => {
+    dispatch(Api.updateCart({ id: val.id, quantity: val.quantity + 1 })).then(res => {
+      setTimeout(() => {
+        dispatch(ViewCart())
+      }, 1000)
+    })
+  }
+  const handleQuentityDec = (val) => {
+    dispatch(Api.updateCart({ id: val.id, quantity: val.quantity - 1 })).then(res => {
+      setTimeout(() => {
+        dispatch(ViewCart())
+      }, 1000)
+    })
+  }
+
 
   return (
     <div>
@@ -45,26 +70,27 @@ const Cart = () => {
                       <tr>
                         <th scope="col">Product</th>
                         <th scope="col-2">Quantity x Price</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Total Price</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {products &&
-                        products.map((item, i) => (
-                          <tr key={i}>
+                      {Carts &&
+                        Carts.map((item, i) => {
+
+                          return (<tr key={i}>
                             <td>{item.productName}</td>
 
                             <td>{item.quantity} * {item.price}</td>
 
-                            <td>{item.price}</td>
-                          </tr>
-                        ))}
+                            <td>{item.total_price}</td>
+                          </tr>)
+                        })}
                     </tbody>
                   </Table>
                 </div>
 
                 <div style={{ display: "flex" }}>
-                  <h4>Total: {total}</h4>
+                  <h4>Total: {subTotal}</h4>
                   <div style={{ marginLeft: "auto" }}>
                     <button className="btn btn-warning">CheckOut</button>
                   </div>
@@ -94,16 +120,28 @@ const Cart = () => {
                               </p>
                               <div className="">
                                 <div className="quantity d-flex align-items-center justify-content-center">
-                                  <button className="btn btn-primary" onClick={()=>setTotal(total+1)}>+</button>
-                                  <input type="number"></input>
-                                  <button className="btn btn-primary" onClick={()=>setTotal(total-1)}>-</button>
+                                  <button className="btn btn-primary"
+                                    disabled={val.quantity == 1}
+                                    onClick={(e) => {
+                                      e.preventDefault()
+                                      handleQuentityDec(val)
+                                    }}
+                                  >-</button>
+                                  <p className="p-3"> {val.quantity}</p>
+                                  <button className="btn btn-primary"
+                                    disabled={val.stock <= val.quantity}
+                                    onClick={(e) => {
+                                      e.preventDefault()
+                                      handleQuentityInc(val)
+                                    }}
+                                  >+</button>
                                 </div>
-                                <button className="btn btn-danger mt-2" style={{textSize:"20px"}} onClick={()=>handleRemoveCart(val)}>
+                                <button className="btn btn-danger mt-2" style={{ textSize: "20px" }} onClick={() => handleRemoveCart(val)}>
                                   <FaCartPlus /> Remove
                                 </button>
                               </div>
                             </div>
-                          </div>  
+                          </div>
                         </div>
                       );
                     })}

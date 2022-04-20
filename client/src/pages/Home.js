@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ProductList from "../components/ProductList";
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from "../redux/actions/GetProduct";
+import { getProducts } from "../redux/actions/productsAction";
 
 const Home = () => {
-   
+
     const dispatch = useDispatch()
-    const products = useSelector(state=>state.GetProductReducer.Products)
+    const products = useSelector(state => state.productsReducer.Products)
+  
     useEffect(() => {
-        dispatch(getProducts())
+            dispatch(getProducts())
     }, [])
 
-
     return (
-        <div>
-            <div className="container" style={{ marginTop: "100px" }}>
-                <ProductList isAction={true}  products={products}/>
-            </div>
+        <div className="container" style={{ marginTop: "100px" }}>
+            {products?.length && <ProductList isAction={true} products={products} />}
         </div>
     )
 }

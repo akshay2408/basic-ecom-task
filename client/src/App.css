@@ -65,3 +65,10 @@ border-radius: 10px;
     text-align: end;
     padding-bottom: 10px;
 }
+.navbar-fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    right: 0;
+}

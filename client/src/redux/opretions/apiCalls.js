@@ -2,17 +2,17 @@ import axios from 'axios';
 import { API_BASE_URL } from "../../constants/baseUrl";
 
 const Api = {}
-const token = localStorage.getItem("token")
+
 Api.Login = (user) => {
     console.log("login", user);
-   
+
     return axios({
         method: 'POST',
         url: `${API_BASE_URL}/login`,
         headers: {
             "Content-type": "application/json"
         },
-        data:user
+        data: user
     })
 }
 
@@ -21,7 +21,6 @@ Api.Register = (newUser) => {
     return axios({
         method: 'POST',
         url: `${API_BASE_URL}/register`,
-
         headers: {
             "Content-type": "application/json"
         },
@@ -29,13 +28,11 @@ Api.Register = (newUser) => {
     })
 }
 
-Api.getProducts = () => {
-
-    console.log("here is token", token)
+export const getProductsApi = () => {
+    const token = localStorage.getItem("token")
     return axios({
         method: 'GET',
         url: `${API_BASE_URL}/products`,
-
         headers: {
             "Content-type": "application/json",
             "Authorization": `Bearer ${token}`
@@ -43,8 +40,8 @@ Api.getProducts = () => {
     })
 }
 
-Api.ViewCarts = () => {
-
+export const getCartsApi = () => {
+    const token = localStorage.getItem("token")
     return axios({
         method: 'GET',
         url: `${API_BASE_URL}/carts`,
@@ -56,6 +53,7 @@ Api.ViewCarts = () => {
 }
 
 Api.AddtoCart = (data) => {
+    const token = localStorage.getItem("token")
     return axios({
         method: 'POST',
         url: `${API_BASE_URL}/cart/${data.id}`,
@@ -66,7 +64,8 @@ Api.AddtoCart = (data) => {
     })
 }
 
-Api.RemoveCart = (id) => {
+Api.removeCart = (id) => {
+    const token = localStorage.getItem("token")
     return axios({
         method: 'DELETE',
         url: `${API_BASE_URL}/cart/${id}`,
@@ -74,6 +73,18 @@ Api.RemoveCart = (id) => {
             "Content-type": "application/json",
             "Authorization": `Bearer ${token}`
         },
+    })
+}
+Api.updateCart = ({ id, quantity }) => {
+    const token = localStorage.getItem("token")
+    return axios({
+        method: 'PATCH',
+        url: `${API_BASE_URL}/cart/${id}`,
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        data: { quantity: quantity }
     })
 }
 

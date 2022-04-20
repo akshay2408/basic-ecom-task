@@ -5,7 +5,7 @@ import { IoLogIn } from 'react-icons/io5'
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-import Api from "../redux/apis/apiCalls";
+import Api from "../redux/opretions/apiCalls";
 
 const Register = () => {
   const [newUser, setNewUser] = useState({

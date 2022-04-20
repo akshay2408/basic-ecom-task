@@ -1,11 +1,13 @@
 import Button from "@restart/ui/esm/Button";
 import React, { useState } from "react"
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
+import { getUser } from "../redux/actions/userAction";
 
-import Api from "../redux/apis/apiCalls";
+import Api from "../redux/opretions/apiCalls";
 
 if (typeof window !== "undefined") {
     injectStyle();
@@ -14,22 +16,19 @@ if (typeof window !== "undefined") {
 const Login = () => {
     const [user, setuser] = useState({ email: "", password: "" })
     const history = useHistory()
+   const dispatch =  useDispatch()
     toast.configure()
-
-    // const redirect = () => {
-    //     console.log("for redirect")
-    //     history.push("/")
-    // }
 
     const handleLogin = (e) => {
         e.preventDefault()
-        Api.Login(user).then((res) =>{
-            localStorage.setItem("token",res.data.token)
-            toast("login successfully!",{type:"success"});
-              history.push("/");        
-          }).catch((err) => {
-            toast(err.response.data,{type:"error"});
-          })
+        Api.Login(user).then((res) => {
+            localStorage.setItem("token", res.data.token)
+            dispatch(getUser(res.data.token))
+            toast("login successfully!", { type: "success" });
+            history.push("/");
+        }).catch((err) => {
+            toast(err.response.data, { type: "error" });
+        })
     }
 
     const handleChange = (e) => {
@@ -61,7 +60,7 @@ const Login = () => {
                 </table>
                 <div style={{ textAlign: "center" }}>
                     <div style={{ margin: "10px" }}>
-                        <Button  className="btn btn-success" type="submit"><a>Login</a></Button>
+                        <Button className="btn btn-success" type="submit"><a>Login</a></Button>
 
                     </div>
 
