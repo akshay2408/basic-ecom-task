@@ -31,11 +31,12 @@ export const removeCart = (id) => {
   const token = localStorage.getItem("token")
   return axios({
     method: 'DELETE',
-    url: `${API_BASE_URL}/cart/${id}`,
+    url: `${API_BASE_URL}/cart`,
     headers: {
       "Content-type": "application/json",
       "Authorization": `Bearer ${token}`
     },
+    data: {id}
   })
 }
 

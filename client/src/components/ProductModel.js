@@ -19,8 +19,10 @@ export default function ProductModel({ handleModal, open, selectedProduct, handl
             onClick={()=>handleModal}
             alt="Card"
           />
+          <div className="mt-4">
           <strong>Price: ${selectedProduct.price} </strong>
           <p> Stock: {selectedProduct.stock} </p>
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer className="bg-light">

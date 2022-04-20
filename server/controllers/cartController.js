@@ -77,12 +77,19 @@ exports.updateCart = async (req, res) => {
 }
 
 exports.removeCart = async (req, res) => {
-  const { id } = req.params
+  const { id } = req.body
   try {
-    const filterCarts = carts.filter(item => item.product_id != id)
-    const response = await util.removeProduct(filterCarts)
-    res.status(200)
-    res.send(response)
+    if (id) {
+      const filterCarts = carts.filter(item => item.product_id != id)
+      const response = await util.removeProduct(filterCarts)
+      res.status(200)
+      res.send(response)
+    }else{
+      const response = await util.removeProduct([])
+      res.status(200)
+      res.send(response)
+    }
+
   } catch (err) {
     res.status(400)
     res.send(err)

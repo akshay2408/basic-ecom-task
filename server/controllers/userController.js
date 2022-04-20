@@ -36,7 +36,6 @@ exports.register = async (req, res) => {
           });
 
           const response = await util.setUser(users);
-          console.log(users);
           let jwtSecretKey = process.env.JWT_SECRET_KEY;
           const token = jwt.sign({ name, email, password }, jwtSecretKey, {
             expiresIn: "1d",

@@ -12,12 +12,10 @@ export const successGetCarts = (result) => {
     }
 }
 
-export const getAllCarts = () => {
-    return function (dispatch) {
-        getCarts().then(result => {
-            dispatch(successGetCarts(result.data))
-        }).catch(error => {
-            toast("something went wrong!", { type: "error" });
-        })
-    }
+export const getAllCarts = () => (dispatch) => {
+    getCarts().then(result => {
+        dispatch(successGetCarts(result.data))
+    }).catch(error => {
+        toast("something went wrong!", { type: "error" });
+    })
 }

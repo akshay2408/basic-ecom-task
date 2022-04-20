@@ -1,54 +1,50 @@
+## ECommerce Challenge:
 
+# Technologies used:
+-  React: Frontend app
+-  Redux: state management tool
+-  axios: Api integration
+-  Node JS/Express JS: Backend
+-  File system with Promised: create apis [as no database support was required]
+-  JWT-webtoken (for user authenticate user we provided token with 1 day expiration)
 
-## Front-End:
-
-# Tool
--  React ^17.0.2
--  Redux (state management tool)
- 
-# Feature 
--   Customer login
--   Category & product browsing
--   Product details
--   Shopping cart
-
-
-## Back-End:
-
-# Note: 
-- According to task discription statement "No database support needs to be included, use mocked data"
-- for backend carts fuctionality we have used file structure for updating mocked data
-- we have create separate file with name "util" for handle file system fuctionality
-
-# Tool
-- Node v14.18.3
-- Express ^4.17.3
-- jwt-webtoken (for user authenticate user we provided token with 1 day expiration)
-
-# Feature 
-- we have create apis for user registration , login ,Products, carts
-- handle all carts opretion like add_to_cart/update_cart/remove_cart
-- we have authenticate user for each operation
-- 
 
 ## Project Setup
 - Clone Repo :https://github.com/akshay2408/basic-ecom-task.git
 
-# Frontend
-1. cd client
-2. npm install (for installing frontend dependency)
-3. npm start ( for starting frontend development server)
-
 # Backend 
 1. cd server
-  - we need .env setup to handling project environments
-  - For Example:
-      PORT=8000
-      JWT_SECRET_KEY = gfg_jwt_secret_key
-      TOKEN_HEADER_KEY = gfg_token_header_key
+  - env variable has been used you must also have on your machine
+  - I have pushed `.env.example' at my end, create your own inside server root directory by below command (for linux only):
+
+  `cp .env.example .env`
+
+  - or manually by creating a file in server directory by name '.env' and copy the content of '.env.example' in it.
 
 2. npm install (for setup backend dependency)
 3. npm start (for starting development server)
+
+
+# Frontend
+1. open a new terminal and go to 'client' directory `cd client`
+2. npm install (for installing frontend dependency)
+3. npm start ( for starting frontend development server)
+
+
+# Feature 
+  - Customer login and registration with auth token(jwt)
+  - Category & product browsing
+  - Check product details inside a modal
+  - Shopping cart with Add to cart, remove and update cart item
+  - Total Invoice with product count and price respectively
+  - Make secure api request to backend via JWT token concept 
+
+
+# Note: 
+- According to task discription statement "No database support needs to be included, I have use mock data"
+- And use filesystem and promise concepts to create APIs.
+- I have create separate file with name "util" for handle file system fuctionality
+
 
 
 

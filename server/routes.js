@@ -13,7 +13,7 @@ app.get('/user',userController.getUser )
 app.get('/products', middlewares.verifyToken, productContorller.getProducts)
 app.get('/carts', middlewares.verifyToken, cartController.getCartList)
 app.post('/cart/:id', middlewares.verifyToken, cartController.addToCart)
-app.delete('/cart/:id', middlewares.verifyToken, cartController.removeCart)
+app.delete('/cart', middlewares.verifyToken, cartController.removeCart)
 app.patch('/cart/:id',  cartController.updateCart)
 
 module.exports = app

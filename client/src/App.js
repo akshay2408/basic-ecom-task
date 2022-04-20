@@ -30,7 +30,7 @@ function App() {
     } else {
       history.push("/login")
     }
-  }, [dispatch])
+  }, [dispatch, history])
 
   return (
     <div className="App">
