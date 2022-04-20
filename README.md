@@ -1,12 +1,13 @@
 ## ECommerce Challenge:
 
-# Technologies used:
+# Technologies and tools used:
 -  React: Frontend app
 -  Redux: state management tool
 -  axios: Api integration
 -  Node JS/Express JS: Backend
 -  File system with Promised: create apis [as no database support was required]
 -  JWT-webtoken (for user authenticate user we provided token with 1 day expiration)
+-  Local Storage
 
 
 ## Project Setup
@@ -44,7 +45,3 @@
 - According to task discription statement "No database support needs to be included, I have use mock data"
 - And use filesystem and promise concepts to create APIs.
 - I have create separate file with name "util" for handle file system fuctionality
-
-
-
-
