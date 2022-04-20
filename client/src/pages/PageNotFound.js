@@ -1,6 +1,6 @@
 import React from "react";
 
-const Error =()=>{
+const PageNotFound =()=>{
     return(
         <div className="container text-center my-2 p-2">
            
@@ -10,4 +10,4 @@ const Error =()=>{
     )
 }
 
-export default Error;
+export default PageNotFound;

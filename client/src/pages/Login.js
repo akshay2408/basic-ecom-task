@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
 import { getUser } from "../redux/actions/userAction";
 
-import {userLogin} from "../redux/opretions/user";
+import {userLogin} from "../redux/operations/user";
 
 
 if (typeof window !== "undefined") {
@@ -16,8 +16,8 @@ if (typeof window !== "undefined") {
 
 const Login = () => {
     const [user, setuser] = useState({ email: "", password: "" })
+    const dispatch = useDispatch();
     const history = useHistory()
-   const dispatch =  useDispatch()
     toast.configure()
 
     const handleLogin = (e) => {
@@ -33,14 +33,12 @@ const Login = () => {
     }
 
     const handleChange = (e) => {
-
-        if (e.target.name == "email") {
+        if (e.target.name === "email") {
             setuser({ ...user, email: e.target.value })
         }
-        if (e.target.name == "password") {
+        if (e.target.name === "password") {
             setuser({ ...user, password: e.target.value })
         }
-
     }
 
     return (
@@ -61,7 +59,7 @@ const Login = () => {
                 </table>
                 <div style={{ textAlign: "center" }}>
                     <div style={{ margin: "10px" }}>
-                        <Button className="btn btn-success" type="submit"><a>Login</a></Button>
+                        <Button className="btn btn-success" type="submit">Login</Button>
 
                     </div>
 

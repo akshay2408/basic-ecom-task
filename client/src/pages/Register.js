@@ -4,11 +4,9 @@ import { Link, useHistory } from "react-router-dom";
 import { IoLogIn } from 'react-icons/io5'
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { userRegister } from "../redux/opretions/user";
+import { userRegister } from "../redux/operations/user";
 import { getUser } from "../redux/actions/userAction";
 import { useDispatch } from "react-redux";
-
-
 
 const Register = () => {
   const [newUser, setNewUser] = useState({
@@ -17,35 +15,24 @@ const Register = () => {
     password: "",
     cpassword: "",
   });
+
   const history = useHistory();
-  toast.configure()
   const dispatch = useDispatch()
-  const hendleChange = (e) => {
-    if (e.target.name == "usename") {
-      setNewUser({ ...newUser, name: e.target.value });
-    }
-    if (e.target.name == "email") {
-      setNewUser({ ...newUser, email: e.target.value });
-    }
-    if (e.target.name == "password") {
-      setNewUser({ ...newUser, password: e.target.value });
-    }
-    if (e.target.name == "cpassword") {
-      setNewUser({ ...newUser, cpassword: e.target.value });
-    }
+  toast.configure()
+  
+  const handleChange = (e) => {
+      setNewUser({ ...newUser, [e.target.name]: e.target.value });    
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     userRegister(newUser).then((res) => {
-
       localStorage.setItem("token", res.data.token)
       dispatch(getUser(res.data.token))
       toast("registration successfully!", { type: "success" });
       setTimeout(() => {
         history.push("/");
       }, 500)
-
     }).catch((err) => {
       toast(err.response?.data?.message, { type: "error" });
     })
@@ -62,10 +49,10 @@ const Register = () => {
                 <td>
                   <input
                     type="text"
-                    name="usename"
+                    name="name"
                     required
                     placeholder="UserName"
-                    onChange={(e) => hendleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   ></input>
                 </td>
               </tr>
@@ -76,7 +63,7 @@ const Register = () => {
                     name="email"
                     required
                     placeholder="Email"
-                    onChange={(e) => hendleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   ></input>
                 </td>
               </tr>
@@ -87,7 +74,7 @@ const Register = () => {
                     name="password"
                     required
                     placeholder="Password"
-                    onChange={(e) => hendleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   ></input>
                 </td>
               </tr>
@@ -98,7 +85,7 @@ const Register = () => {
                     name="cpassword"
                     required
                     placeholder="Confirm password"
-                    onChange={(e) => hendleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   ></input>
                 </td>
               </tr>

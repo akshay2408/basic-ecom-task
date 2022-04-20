@@ -1,7 +1,7 @@
 import {
   GET_USER,
 } from "../../constants/actionTypes";
-import { getUserApi } from "../opretions/user";
+import { getUserApi } from "../operations/user";
 
 export const successGetUser = (result) => {
   return {

@@ -2,7 +2,7 @@ import {
     GET_CARTS,
 } from "../../constants/actionTypes";
 
-import { getCarts } from "../opretions/carts";
+import { getCarts } from "../operations/carts";
 
 
 

@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import PageNotFound from "./pages/Error";
+import PageNotFound from "./pages/PageNotFound";
 import Cart from "./pages/Cart";
 import { toast } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
@@ -20,14 +20,12 @@ if (typeof window !== "undefined") {
 }
 
 function App() {
-  toast.configure()
   const dispatch = useDispatch()
-  const history = useHistory()
-  const loginUser = useSelector(state => state?.userReducer?.userinfo)
-  const isLoggedIn = useSelector(state => state?.userReducer?.isLoggedIn)
-  const pathname = window.location.pathname
-
+  const history = useHistory();
+  const isLoggedIn = useSelector(state => state?.userReducer?.isLoggedIn);
+  
   useEffect(() => {
+    toast.configure()
     const token = localStorage.getItem("token")
     if (token) {
       dispatch(getUser(token))

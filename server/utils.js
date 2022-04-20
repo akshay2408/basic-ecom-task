@@ -1,4 +1,3 @@
-
 const fs = require('fs')
 
 exports.setUser = (users)=>{

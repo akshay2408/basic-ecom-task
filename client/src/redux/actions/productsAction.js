@@ -1,7 +1,7 @@
 import {
   GET_PRODUCTS,
 } from "../../constants/actionTypes";
-import { getProducts } from "../opretions/products";
+import { getProducts } from "../operations/products";
 
 export const successGetProducts = (result) => {
   return {

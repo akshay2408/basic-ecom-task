@@ -1,8 +1,5 @@
-
 import axios from 'axios';
 import { API_BASE_URL } from "../../constants/baseUrl";
-
-
 
 export const userLogin = (user) => {
   return axios({
@@ -26,13 +23,13 @@ export const userRegister = (newUser) => {
   })
 }
 
-export const getUserApi = (tk) => {
+export const getUserApi = (token) => {
   return axios({
     method: 'GET',
     url: `${API_BASE_URL}/user`,
     headers: {
       "Content-type": "application/json",
-      "Authorization": `Bearer ${tk}`
+      "Authorization": `Bearer ${token}`
     }
   })
 }

@@ -14,7 +14,7 @@ const Home = () => {
 
     return (
         <div className="container" style={{ marginTop: "100px" }}>
-            <ProductList isAction={true} products={products} />
+            <ProductList  products={products} />
         </div>
     )
 }

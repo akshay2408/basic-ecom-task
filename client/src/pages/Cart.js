@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCarts } from "../redux/actions/cartsAction";
-import { removeCart, updateCart } from "../redux/opretions/carts"
+import { removeCart, updateCart } from "../redux/operations/carts"
 
 import { FaCartPlus } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Model from "../components/CartModel";
 
 const Cart = () => {
-
+  const [open, setOpen] = useState(false);
   const [subTotal, setSubTotal] = useState(0);
+  
   const dispatch = useDispatch()
   let cartList = useSelector(state => state.cartsReducer.cartList)
+  const loginUser = useSelector((state) => state?.userReducer?.userinfo);
 
   useEffect(() => {
     dispatch(getAllCarts())
@@ -25,6 +28,8 @@ const Cart = () => {
     })
     setSubTotal(total)
   }, [cartList])
+  
+  const handleModal = () => setOpen(!open);
 
   const handleRemoveCart = (product) => {
     console.log(product.id)
@@ -37,15 +42,19 @@ const Cart = () => {
     })
   }
 
-  const handleQuentityInc = (val) => {
+  const handleQuantityInc = (val) => {
     updateCart({ id: val.id, quantity: val.quantity + 1 }).then(res => {
-      dispatch(getAllCarts())
+      setTimeout(() => {
+        dispatch(getAllCarts())
+      }, 500)
     })
   }
 
-  const handleQuentityDec = (val) => {
+  const handleQuantityDec = (val) => {
     updateCart({ id: val.id, quantity: val.quantity - 1 }).then(res => {
-      dispatch(getAllCarts())
+      setTimeout(() => {
+        dispatch(getAllCarts())
+      }, 500)
     })
   }
 
@@ -83,9 +92,9 @@ const Cart = () => {
                 </div>
 
                 <div style={{ display: "flex" }}>
-                  <h4>Total: {subTotal}</h4>
+                  <h4>Total: ${subTotal}</h4>
                   <div style={{ marginLeft: "auto" }}>
-                    <button className="btn btn-warning">CheckOut</button>
+                    <button className="btn btn-warning" onClick={handleModal}>CheckOut</button>
                   </div>
                 </div>
               </div>
@@ -104,7 +113,7 @@ const Cart = () => {
                               src={val.image}
                               height={100}
                               width={50}
-                              alt="Card image"
+                              alt="Card"
                             />
                             <div className="card-body px-0 py-2 text-center">
                               <h4 className="card-title"> {val.productName} </h4>
@@ -114,18 +123,18 @@ const Cart = () => {
                               <div className="">
                                 <div className="quantity d-flex align-items-center justify-content-center">
                                   <button className="btn btn-primary"
-                                    disabled={val.quantity == 1}
+                                    disabled={val?.quantity === 1}
                                     onClick={(e) => {
                                       e.preventDefault()
-                                      handleQuentityDec(val)
+                                      handleQuantityDec(val)
                                     }}
                                   >-</button>
-                                  <p className="p-3"> {val.quantity}</p>
+                                  <p className="p-3"> {val?.quantity}</p>
                                   <button className="btn btn-primary"
-                                    disabled={val.stock <= val.quantity}
+                                    disabled={val.stock <= val?.quantity}
                                     onClick={(e) => {
                                       e.preventDefault()
-                                      handleQuentityInc(val)
+                                      handleQuantityInc(val)
                                     }}
                                   >+</button>
                                 </div>
@@ -147,6 +156,15 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      {open && (
+          <Model
+            handleModal={handleModal}
+            open={open}
+            total={subTotal}
+            user={loginUser}
+          />
+        )}
+
     </div>
   );
 };
